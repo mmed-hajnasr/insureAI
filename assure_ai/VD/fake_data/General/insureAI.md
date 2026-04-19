@@ -161,7 +161,7 @@ Anyone who owns or regularly drives a vehicle. Comprehensive coverage is highly 
 ## How InsureAI Works — Step by Step
 
 ```
-1. Create your free profile
+1. Create your profile
         ↓
 2. Tell us about your needs (or chat with our AI)
         ↓
@@ -193,9 +193,10 @@ Anyone who owns or regularly drives a vehicle. Comprehensive coverage is highly 
 ## Getting Started
 
 1. Visit **insureai.com** or download the InsureAI app
-2. Create a free account — no credit card required
-3. Start chatting with the AI or browse the marketplace directly
-4. Find your plan and sign up in minutes
+2. Create a account
+3. pay the fee
+4. Start chatting with the AI or browse the marketplace directly
+5. Find your plan and sign up in minutes
 
 ---
 

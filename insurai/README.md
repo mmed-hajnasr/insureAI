@@ -1,15 +1,29 @@
-# React + TypeScript + Vite
+# insurai (Frontend)
 
-## Firebase Authentication setup
+`insurai` is a React + TypeScript + Vite frontend for the insurance assistant platform.
 
-This project now uses Firebase Authentication for:
+## Features
 
-- Email/password login
-- Email/password signup
-- Google popup login
-- Protected routes for `/app` and `/app/chat`
+- Landing, auth, and platform pages
+- Chat UI for regular and guided assistant modes
+- Firebase Authentication (email/password + Google)
+- Backend integration with `/chat` and `/guided-chat`
 
-Add these variables to `.env`:
+## Prerequisites
+
+- Node.js `>=20` (recommended: `22`)
+- npm
+- Running backend (`assure_ai`) on `http://127.0.0.1:8001` or via Docker Compose
+
+## Environment variables
+
+Create local env from example:
+
+```bash
+cp .env.example .env
+```
+
+Required Firebase variables:
 
 ```dotenv
 VITE_FIREBASE_API_KEY=...
@@ -20,79 +34,43 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=...
 VITE_FIREBASE_APP_ID=...
 ```
 
-In Firebase Console, enable:
+Backend API base URL:
 
-- Authentication → Sign-in method → Email/Password
-- Authentication → Sign-in method → Google
+- `VITE_ASSURE_API_URL=/api` (recommended in dev with Vite proxy)
+- or direct backend URL if CORS is configured, for example `http://127.0.0.1:8001`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Run locally
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Frontend runs at `http://127.0.0.1:5173` (default Vite).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Build and preview
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
+npm run preview
 ```
+
+## Docker
+
+Build frontend image:
+
+```bash
+docker build -t insurai-frontend .
+```
+
+Run frontend container:
+
+```bash
+docker run --rm -p 5173:80 insurai-frontend
+```
+
+Container serves static files with Nginx and proxies `/api/*` to the backend service name `assure_ai_backend` in Docker Compose.
+
+## Full stack
+
+For backend + frontend + qdrant together, use the root-level `../docker-compose.yaml`.

@@ -29,6 +29,8 @@ RUN --mount=from=uv,source=/usr/local/bin/uv,target=/bin/uv \
     --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev
 
+EXPOSE 8001
+
 CMD ["/usr/local/bin/python", "-m", "assure_ai"]
 
 # -----------------------------------
