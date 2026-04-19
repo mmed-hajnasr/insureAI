@@ -1,14 +1,16 @@
 # insureAI Monorepo
 
-This workspace contains two projects:
+This workspace contains three projects:
 
 - `assure_ai/`: FastAPI backend for insurance chat and retrieval
 - `insurai/`: React frontend for authentication and chat experience
+- `phone _agent/`: Voice phone agent (Asterisk + Python) with scripted setup
 
 ## Architecture
 
 - Frontend (`insurai`) calls backend endpoints (`/chat`, `/guided-chat`, `/tel`).
 - Backend (`assure_ai`) uses a Google Gemini model and Qdrant retrieval.
+- Phone agent (`phone _agent`) provides voice-call interaction flow.
 - Docker Compose runs frontend + backend + qdrant in one stack.
 
 ## Repository layout
@@ -17,6 +19,7 @@ This workspace contains two projects:
 .
 ├── assure_ai/   # Python backend
 ├── insurai/     # React frontend
+├── phone _agent/ # Voice phone agent
 └── docker-compose.yaml
 ```
 
@@ -95,6 +98,17 @@ VITE_ASSURE_API_URL=/api
 
 Vite proxy forwards `/api` to backend at `http://127.0.0.1:8001`.
 
+## Option 3: Run phone agent
+
+From repo root:
+
+```bash
+cd "phone _agent"
+bash setup.sh
+```
+
+The setup script installs and configures what the phone agent needs.
+
 ## Per-project Dockerfiles
 
 - Backend Dockerfile: `assure_ai/Dockerfile`
@@ -111,5 +125,6 @@ Vite proxy forwards `/api` to backend at `http://127.0.0.1:8001`.
 
 - Backend setup/details: `assure_ai/README.md`
 - Frontend setup/details: `insurai/README.md`
+- Phone agent setup/details: `phone _agent/README.md`
 - Guided endpoint details: `assure_ai/README_GUIDED_CHAT_ENDPOINT.md`
 - TEL endpoint details: `assure_ai/README_TEL_ENDPOINT.md`
